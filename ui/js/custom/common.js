@@ -6,6 +6,7 @@ var productDeleteApiUrl = 'http://127.0.0.1:5000/deleteProduct';
 var orderListApiUrl = 'http://127.0.0.1:5000/getAllOrders';
 var orderSaveApiUrl = 'http://127.0.0.1:5000/insertOrder';
 var orderDetailsApiUrl = 'http://127.0.0.1:5000/getOrderDetails';
+var orderDeleteApiUrl = 'http://127.0.0.1:5000/deleteOrder';
 // For product drop in order
 var productsApiUrl = 'https://fakestoreapi.com/products';
 
@@ -14,14 +15,14 @@ function callApi(method, url, data) {
         method: method,
         url: url,
         data: data
-    }).done(function (msg) {
+    }).done(function(msg) {
         window.location.reload();
     });
 }
 
 function calculateValue() {
     var total = 0;
-    $(".product-item").each(function (index) {
+    $(".product-item").each(function(index) {
         var qty = parseFloat($(this).find('.product-qty').val());
         var price = parseFloat($(this).find('#product_price').val());
         price = price * qty;

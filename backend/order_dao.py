@@ -72,16 +72,19 @@ def get_all_orders(connection):
             'total': total,
             'datetime': dt,
         })
-
     cursor.close()
-
     # append order details in each order
     for record in response:
         record['order_details'] = get_order_details(
             connection, record['order_id'])
-
     return response
 
+def delete_order(connection, order_id):
+    cursor = connection.cursor()
+    query = ("DELETE FROM orders where order_id=" + str(order_id))
+    cursor.execute(query)
+    connection.commit()
+    return cursor.lastrowid
 
 if __name__ == '__main__':
     connection = get_sql_connection()

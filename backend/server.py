@@ -50,8 +50,7 @@ def get_all_orders():
 @app.route('/getOrderDetails', methods=['GET', 'POST'])
 def get_order_details():
     order_id = int(request.args.get('orderid'))
-    response = order_dao.get_order_details(
-        connection, order_id)
+    response = order_dao.get_order_details(connection, order_id)
     response = jsonify(response)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
@@ -79,6 +78,17 @@ def delete_product():
     return response
 
 
+@app.route('/deleteOrder', methods=['POST'])
+def delete_order():
+    return_id = order_dao.delete_order(
+        connection, request.form['order_id'])
+    response = jsonify({
+        'order_id': return_id
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
 if __name__ == "__main__":
-    print("Starting Python Flask Server For Grocery Store Management System")
+    print("Starting Python Flask Server For Mini Store Management System")
     app.run(port=5000)

@@ -1,14 +1,14 @@
-$(function () {
+$(function() {
     //Json data by api call for order table
     var urlParams = new URLSearchParams(window.location.search);
     var order_id = parseInt(urlParams.get('order_id'));
     console.log(order_id);
 
-    $.get(orderDetailsApiUrl + "?orderid=" + order_id, function (response) {
+    $.get(orderDetailsApiUrl + "?orderid=" + order_id, function(response) {
         if (response) {
             var table = '';
 
-            $.each(response, function (index, order) {
+            $.each(response, function(index, order) {
                 console.log(order.order_details);
                 table += '<tr>' +
                     '<td>' + order.product_name + '</td>' +
@@ -21,3 +21,14 @@ $(function () {
         }
     });
 });
+
+
+// $(document).on("click", ".Details", function () {
+//     var tr = $(this).closest('tr');
+//     var data = {
+//         product_id: tr.data('id')
+//     };
+//     if (isDelete) {
+//         callApi("POST", productDeleteApiUrl, data);
+//     }
+// });

@@ -1,12 +1,12 @@
 var productPrices = {};
 
-$(function () {
+$(function() {
     //Json data by api call for order table
-    $.get(productListApiUrl, function (response) {
+    $.get(productListApiUrl, function(response) {
         productPrices = {}
         if (response) {
             var options = '<option value="">--Select--</option>';
-            $.each(response, function (index, product) {
+            $.each(response, function(index, product) {
                 options += '<option value="' + product.product_id + '">' + product.name + '</option>';
                 productPrices[product.product_id] = product.price_per_unit;
             });
@@ -15,7 +15,7 @@ $(function () {
     });
 });
 
-$("#addMoreButton").click(function () {
+$("#addMoreButton").click(function() {
     var row = $(".product-box").html();
     $(".product-box-extra").append(row);
     $(".product-box-extra .remove-row").last().removeClass('hideit');
@@ -24,12 +24,12 @@ $("#addMoreButton").click(function () {
     $(".product-box-extra .product-total").last().text('0.0');
 });
 
-$(document).on("click", ".remove-row", function () {
+$(document).on("click", ".remove-row", function() {
     $(this).closest('.row').remove();
     calculateValue();
 });
 
-$(document).on("change", ".cart-product", function () {
+$(document).on("change", ".cart-product", function() {
     var product_id = $(this).val();
     var price = productPrices[product_id];
 
@@ -37,11 +37,11 @@ $(document).on("change", ".cart-product", function () {
     calculateValue();
 });
 
-$(document).on("change", ".product-qty", function (e) {
+$(document).on("change", ".product-qty", function(e) {
     calculateValue();
 });
 
-$("#saveOrder").on("click", function () {
+$("#saveOrder").on("click", function() {
     var formData = $("form").serializeArray();
     console.log(formData);
     var requestPayload = {
@@ -77,7 +77,6 @@ $("#saveOrder").on("click", function () {
                 lastElement.total_price = element.value
                 break;
         }
-
     }
     callApi("POST", orderSaveApiUrl, {
         'data': JSON.stringify(requestPayload)

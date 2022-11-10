@@ -1,11 +1,11 @@
 var productModal = $("#productModal");
-$(function () {
+$(function() {
 
     //JSON data by API call
-    $.get(productListApiUrl, function (response) {
+    $.get(productListApiUrl, function(response) {
         if (response) {
             var table = '';
-            $.each(response, function (index, product) {
+            $.each(response, function(index, product) {
                 table += '<tr data-id="' + product.product_id + '" data-name="' + product.name + '" data-unit="' + product.uom_id + '" data-price="' + product.price_per_unit + '">' +
                     '<td>' + product.name + '</td>' +
                     '<td>' + product.uom_name + '</td>' +
@@ -18,7 +18,7 @@ $(function () {
 });
 
 // Save Product
-$("#saveProduct").on("click", function () {
+$("#saveProduct").on("click", function() {
     // If we found id value in form then update product detail
     var data = $("#productForm").serializeArray();
     var requestPayload = {
@@ -45,7 +45,7 @@ $("#saveProduct").on("click", function () {
     });
 });
 
-$(document).on("click", ".delete-product", function () {
+$(document).on("click", ".delete-product", function() {
     var tr = $(this).closest('tr');
     var data = {
         product_id: tr.data('id')
@@ -56,18 +56,20 @@ $(document).on("click", ".delete-product", function () {
     }
 });
 
-productModal.on('hide.bs.modal', function () {
+
+
+productModal.on('hide.bs.modal', function() {
     $("#id").val('0');
     $("#name, #unit, #price").val('');
     productModal.find('.modal-title').text('Add New Product');
 });
 
-productModal.on('show.bs.modal', function () {
+productModal.on('show.bs.modal', function() {
     //JSON data by API call
-    $.get(uomListApiUrl, function (response) {
+    $.get(uomListApiUrl, function(response) {
         if (response) {
             var options = '<option value="">--Select--</option>';
-            $.each(response, function (index, uom) {
+            $.each(response, function(index, uom) {
                 options += '<option value="' + uom.uom_id + '">' + uom.uom_name + '</option>';
             });
             $("#uoms").empty().html(options);
